@@ -84,9 +84,26 @@ class App():
         Returns:
             studyRegions: list -- study region names
         """
+        # list all Windows SQL Server drivers
+        drivers = [
+            '{ODBC Driver 17 for SQL Server}',
+            '{ODBC Driver 13.1 for SQL Server}',
+            '{ODBC Driver 13 for SQL Server}',
+            '{ODBC Driver 11 for SQL Server} ',
+            '{SQL Server Native Client 11.0}',
+            '{SQL Server Native Client 10.0}',
+            '{SQL Native Client}',
+            '{SQL Server}'
+        ]
         comp_name = os.environ['COMPUTERNAME']
-        conn = py.connect('Driver=ODBC Driver 11 for SQL Server;SERVER=' +
-                          comp_name + '\HAZUSPLUSSRVR; UID=SA;PWD=Gohazusplus_02')
+        # create connection with the latest driver
+        for driver in drivers:
+            try:
+                conn = py.connect('Driver={d};SERVER={cn}\HAZUSPLUSSRVR;UID=SA;PWD=Gohazusplus_02'.format(
+                    d=driver, cn=comp_name))
+                break
+            except:
+                continue
         exclusionRows = ['master', 'tempdb', 'model',
                          'msdb', 'syHazus', 'CDMS', 'flTmpDB']
         cursor = conn.cursor()
@@ -107,9 +124,26 @@ class App():
         if not os.path.exists(folder_path + '\\' + scenario_name):
             os.makedirs(folder_path + '\\' + scenario_name)
         # Connect to Hazus SQL Server database where scenario results are stored
+        # list all Windows SQL Server drivers
+        drivers = [
+            '{ODBC Driver 17 for SQL Server}',
+            '{ODBC Driver 13.1 for SQL Server}',
+            '{ODBC Driver 13 for SQL Server}',
+            '{ODBC Driver 11 for SQL Server} ',
+            '{SQL Server Native Client 11.0}',
+            '{SQL Server Native Client 10.0}',
+            '{SQL Native Client}',
+            '{SQL Server}'
+        ]
         comp_name = os.environ['COMPUTERNAME']
-        cnxn = py.connect('Driver=ODBC Driver 11 for SQL Server;SERVER=' + comp_name +
-                          '\HAZUSPLUSSRVR;DATABASE=' + scenario_name + ';UID=hazuspuser;PWD=Gohazusplus_02')
+        # create connection with the latest driver
+        for driver in drivers:
+            try:
+                cnxn = py.connect('Driver={d};SERVER={cn}\HAZUSPLUSSRVR;DATABASE={sn};UID=hazuspuser;PWD=Gohazusplus_02'.format(
+                    d=driver, cn=comp_name, sn=scenario_name))
+                break
+            except:
+                continue
         return comp_name, cnxn
 
     def read_sql(self, comp_name, cnxn, scenario_name):
