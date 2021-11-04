@@ -1,7 +1,7 @@
 from subprocess import call
 try:
     try:
-        call('CALL conda.bat activate hazus_env & start /min python src\gui.py', shell=True)
+        call('CALL conda.bat activate hazus_twopager_env & start /min python src\gui.py', shell=True)
     except:
         call('start /min python src\gui.py', shell=True)
 
