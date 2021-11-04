@@ -1,1 +1,0 @@
-activate base && python __main__.pyw
