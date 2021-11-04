@@ -20,13 +20,12 @@ try:
 
         if __name__=='__main__':
             manage = Manage()
-        app_path = './src/gui.py'
-        try:
-            manage.checkForUpdates()
-            manage.startApp(app_path)
-        except Exception as e:
-            print(e)
-
+            app_path = './src/gui.py'
+            try:
+                manage.checkForUpdates()
+                manage.startApp(app_path)
+            except Exception as e:
+                print(e)
 except Exception as e:
     import ctypes
     print(e)
