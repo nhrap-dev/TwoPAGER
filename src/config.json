@@ -47,8 +47,8 @@
   },
   "dev": {
     "hazpyInitUrl": "https://raw.githubusercontent.com/nhrap-dev/hazpy/master/hazpy/__init__.py",
-    "repoZipfileUrl": "https://github.com/nhrap-dev/TwoPager/archive/refs/heads/refactor-two-pager.zip",
-    "toolInitUrl": "https://raw.githubusercontent.com/nhrap-dev/TwoPager/refactor-two-pager/src/__init__.py",
+    "repoZipfileUrl": "https://github.com/nhrap-dev/TwoPager/archive/refs/heads/master.zip",
+    "toolInitUrl": "https://raw.githubusercontent.com/nhrap-dev/TwoPager/master/src/__init__.py",
     "virtualEnvironment": "hazus_twopager_env",
     "pythonPackage": "hazpy",
     "httpTimeout": 5
