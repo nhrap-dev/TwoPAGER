@@ -78,7 +78,27 @@ class App():
         # Init dynamic row
         self.row = 0
 
-    def getStudyRegions(self):
+    def getConnectionString(self, stringName):
+        """ Looks up a connection string in a json file based on an input argument
+
+            Keyword Arguments:
+                stringName: str -- the name of the connection string in the json file
+                
+            Returns:
+                conn: pyodbc connection string that needs driver and computername updated
+
+            Notes:
+                Can we use relative path to this file for ./connectionStrings.json or
+                is it relative to file that imported this file?
+                os.path.join(Path(__file__).parent, "connectionStrings.json")
+                "./connectionStrings.json"
+        """
+        with open("./src/connectionStrings.json") as f:
+            connectionStrings = json.load(f)
+            connectionString = connectionStrings[stringName]
+        return connectionString
+
+    def getStudyRegions(self, orm="pyodbc" ):
         """Gets all study region names imported into your local Hazus install
 
         Returns:
@@ -95,15 +115,17 @@ class App():
             '{SQL Native Client}',
             '{SQL Server}'
         ]
-        comp_name = os.environ['COMPUTERNAME']
+        computer_name = os.environ['COMPUTERNAME']
         # create connection with the latest driver
-        for driver in drivers:
-            try:
-                conn = py.connect('Driver={d};SERVER={cn}\HAZUSPLUSSRVR;UID=SA;PWD=Gohazusplus_02'.format(
-                    d=driver, cn=comp_name))
-                break
-            except:
-                continue
+        if orm == 'pyodbc':
+            # create connection with the latest driver
+            for driver in drivers:
+                try:
+                    conn = py.connect(self.getConnectionString('pyodbc').format(d=driver, cn=computer_name))
+                    break
+                except:
+                    conn = py.connect(self.getConnectionString('pyodbc_auth').format(d=driver, cn=computer_name))
+                    break
         exclusionRows = ['master', 'tempdb', 'model',
                          'msdb', 'syHazus', 'CDMS', 'flTmpDB']
         cursor = conn.cursor()
@@ -119,7 +141,7 @@ class App():
         studyRegions.sort(key=lambda x: x.lower())
         return studyRegions
 
-    def setup(self, scenario_name, folder_path):
+    def setup(self, scenario_name, folder_path, orm="pyodbc"):
         # Make a folder in folder_path for scenario_name
         if not os.path.exists(folder_path + '\\' + scenario_name):
             os.makedirs(folder_path + '\\' + scenario_name)
@@ -135,16 +157,17 @@ class App():
             '{SQL Native Client}',
             '{SQL Server}'
         ]
-        comp_name = os.environ['COMPUTERNAME']
-        # create connection with the latest driver
-        for driver in drivers:
-            try:
-                cnxn = py.connect('Driver={d};SERVER={cn}\HAZUSPLUSSRVR;DATABASE={sn};UID=hazuspuser;PWD=Gohazusplus_02'.format(
-                    d=driver, cn=comp_name, sn=scenario_name))
-                break
-            except:
-                continue
-        return comp_name, cnxn
+        computer_name = os.environ['COMPUTERNAME']
+        if orm == 'pyodbc':
+            # create connection with the latest driver
+            for driver in drivers:
+                try:
+                    conn = py.connect(self.getConnectionString('pyodbc').format(d=driver, cn=computer_name))
+                    break
+                except:
+                    conn = py.connect(self.getConnectionString('pyodbc_auth').format(d=driver, cn=computer_name))
+                    break
+            return computer_name, conn
 
     def read_sql(self, comp_name, cnxn, scenario_name):
         # Select Hazus results from SQL Server scenario database
