@@ -1,26 +1,15 @@
 # TwoPAGER
 
-<h2>Requirements</h2>
+## Requirements
 
-- Preferably have anaconda installed
+The TwoPAGER tool requires Hazus and conda be installed on your computer. If you haven't already, follow this [README](https://github.com/nhrap-dev/Environment-Setup/tree/update-README) to setup your machine with miniforge and conda before trying to run TwoPAGER
 
-- If you do not have Anaconda installed, have Python 3.X installed
-
-<h2>Use</h2>
+## Use
 
 Double click on TwoPAGER.py to run the tool
 
-<h2>Package Dependencies</h2>
+## Contact
 
-Ensure these Python packages are installed prior to running. If you have HazPy, you shouldn't have to worry about these
+Issues can be reported through the repository on Github: https://github.com/nhrap-dev/TwoPAGER/issues
 
-Install a package by opening a command prompt and using `conda install PACKAGENAME`. If you do not have Anaconda installed, use `pip install PACKAGENAME`.
-
-Depdenent Python packages
-
-```
-pyodbc
-tkinter
-pandas
-PIL
-```
+For questions contact the Hazus Team at fema-hazus-support@fema.dhs.gov.
