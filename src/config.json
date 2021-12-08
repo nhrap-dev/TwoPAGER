@@ -28,7 +28,7 @@
       }
     }
   },
-  "release": "dev",
+  "release": "main",
   "prod": {
     "hazpyInitUrl": "https://raw.githubusercontent.com/nhrap-hazus/hazpy/main/hazpy/__init__.py",
     "repoZipfileUrl": "https://github.com/nhrap-hazus/TwoPager/archive/main.zip",
@@ -46,9 +46,9 @@
     "httpTimeout": 5
   },
   "dev": {
-    "hazpyInitUrl": "https://raw.githubusercontent.com/nhrap-dev/hazpy/master/hazpy/__init__.py",
-    "repoZipfileUrl": "https://github.com/nhrap-dev/TwoPager/archive/refs/heads/master.zip",
-    "toolInitUrl": "https://raw.githubusercontent.com/nhrap-dev/TwoPager/master/src/__init__.py",
+    "hazpyInitUrl": "https://raw.githubusercontent.com/nhrap-hazus/hazpy/dev/hazpy/__init__.py",
+    "repoZipfileUrl": "https://github.com/nhrap-hazus/TwoPager/archive/refs/heads/master.zip",
+    "toolInitUrl": "https://raw.githubusercontent.com/nhrap-hazus/TwoPager/dev/src/__init__.py",
     "virtualEnvironment": "hazus_twopager_env",
     "pythonPackage": "hazpy",
     "httpTimeout": 5
